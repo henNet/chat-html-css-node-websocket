@@ -29,4 +29,4 @@ server.listen(PORT, () => {
   console.log("Server started on http://localhost:3000");
 });
 
-export default server;
+export { server };
