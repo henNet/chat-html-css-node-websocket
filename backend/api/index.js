@@ -20,3 +20,5 @@ function realizarConexao(socket) {
     // servidor.clients.forEach((cliente) => cliente.send(JSON.stringify(msg)));
   });
 }
+
+export default servidor;
