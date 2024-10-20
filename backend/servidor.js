@@ -11,6 +11,12 @@ function realizarConexao(socket) {
 
   socket.on("message", (dados) => {
     console.log(dados.toString());
+    // let msg = {
+    //   qt: servidor.clients.size,
+    //   data: JSON.parse(dados),
+    // };
+    // console.log(msg);
     servidor.clients.forEach((cliente) => cliente.send(dados.toString()));
+    // servidor.clients.forEach((cliente) => cliente.send(JSON.stringify(msg)));
   });
 }

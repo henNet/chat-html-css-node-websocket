@@ -7,6 +7,8 @@ var chatContainer = document.querySelector(".chatContainer");
 var chatMsgInput = document.querySelector("#chatMsgInput");
 var mensagens = document.querySelector(".mensagens");
 
+var qt = document.querySelector(".qtUsuarios");
+
 var clienteSocket;
 
 var usuario = {
@@ -16,15 +18,21 @@ var usuario = {
 
 function conectar() {
   usuario.id = crypto.randomUUID();
-  usuario.name = loginNameInput.value;
+  usuario.nome = loginNameInput.value;
 
   loginContainer.style.display = "none";
   chatContainer.style.display = "flex";
 
   clienteSocket = new WebSocket("http://localhost:80");
-  // clienteSocket.onopen = () => {
-  //   clienteSocket.send(JSON.stringify(usuario));
-  // };
+
+  let msg = {
+    type: "0",
+    user: usuario,
+  };
+
+  clienteSocket.onopen = () => {
+    clienteSocket.send(JSON.stringify(msg));
+  };
 
   clienteSocket.onmessage = processarMensagem;
 }
@@ -32,11 +40,18 @@ function conectar() {
 function processarMensagem({ data }) {
   console.log("Mensagem: " + data);
   let dados = JSON.parse(data);
+  // let dados = data;
+  // console.log("Mensagem: " + Object.values(dados.data));
+  // qt.innerHTML = `Usuários online: <span><b>${dados.qt}</b></span>`;
 
-  if (dados.id == usuario.id) {
-    criarMinhaMensagem(dados.conteudo);
+  if (dados.type != null) {
+    alert(dados.user.nome + " entrou no chat");
   } else {
-    criarOutrosMensagem(dados.nome, dados.conteudo);
+    if (dados.id == usuario.id) {
+      criarMinhaMensagem(dados.conteudo);
+    } else {
+      criarOutrosMensagem(dados.nome, dados.conteudo);
+    }
   }
 
   mensagens.scrollTop = mensagens.scrollHeight;
@@ -73,7 +88,7 @@ function criarOutrosMensagem(nome, mensagem) {
 function enviar() {
   let mensagem = {
     id: usuario.id,
-    nome: usuario.name,
+    nome: usuario.nome,
     conteudo: chatMsgInput.value,
   };
 
