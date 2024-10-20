@@ -1,6 +1,10 @@
-import { WebSocketServer } from "ws";
-import http from "http";
-import express from "express";
+// import { WebSocketServer } from "ws";
+// import http from "http";
+// import express from "express";
+
+const { WebSocketServer } = require("ws");
+const http = require("http");
+const express = require("express");
 
 const app = express();
 const server = http.createServer(app);
@@ -29,4 +33,4 @@ server.listen(PORT, () => {
   console.log("Server started on http://localhost:3000");
 });
 
-export { server };
+module.exports = server;
