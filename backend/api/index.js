@@ -1,7 +1,11 @@
 import { WebSocketServer } from "ws";
+import http from "http";
+import express from "express";
 
-const PORT = 80;
-const servidor = new WebSocketServer({ port: PORT });
+const app = express();
+const server = http.createServer(app);
+const PORT = 3000;
+const servidor = new WebSocketServer({ server });
 
 servidor.on("connection", realizarConexao);
 
@@ -21,4 +25,8 @@ function realizarConexao(socket) {
   });
 }
 
-export default servidor;
+server.listen(PORT, () => {
+  console.log("Server started on http://localhost:3000");
+});
+
+export default server;
