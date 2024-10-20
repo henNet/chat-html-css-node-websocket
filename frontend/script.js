@@ -23,7 +23,10 @@ function conectar() {
   loginContainer.style.display = "none";
   chatContainer.style.display = "flex";
 
-  clienteSocket = new WebSocket("http://localhost:80");
+  // clienteSocket = new WebSocket("http://localhost:80");
+  clienteSocket = new WebSocket(
+    "https://backend-chat-html-css-node-websocket.vercel.app/"
+  );
 
   let msg = {
     type: "0",
