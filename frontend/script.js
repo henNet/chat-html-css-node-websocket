@@ -25,7 +25,7 @@ function conectar() {
 
   // clienteSocket = new WebSocket("http://localhost:3000");
   clienteSocket = new WebSocket(
-    "https://backend-chat-html-css-node-websocket.vercel.app/"
+    "ws://backend-chat-html-css-node-websocket.vercel.app/"
   );
 
   let msg = {
