@@ -24,8 +24,12 @@ function conectar() {
   chatContainer.style.display = "flex";
 
   // clienteSocket = new WebSocket("ws://localhost:3000");
+  // clienteSocket = new WebSocket(
+  //   "https://chat-html-css-node-websocket.onrender.com"
+  // );
+
   clienteSocket = new WebSocket(
-    "https://chat-html-css-node-websocket.onrender.com"
+    "https://backend-chat-html-css-node-websocket.vercel.app/"
   );
 
   let msg = {
