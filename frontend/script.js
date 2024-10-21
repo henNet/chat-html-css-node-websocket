@@ -14,11 +14,27 @@ var clienteSocket;
 var usuario = {
   id: "",
   nome: "",
+  cor: "",
 };
+
+var cores = [
+  "#fffae7ff",
+  "#e3e1caff",
+  "#cbc5afff",
+  "#cee3e8ff",
+  "#b9d1dbff",
+  "#fffdd7ff",
+  "#fff1c0ff",
+  "#ffe5aaff",
+  "#ffcdd0ff",
+  "#e2b0b9ff",
+  "#c393a1ff",
+];
 
 function conectar() {
   usuario.id = crypto.randomUUID();
   usuario.nome = loginNameInput.value;
+  usuario.cor = cores[Math.floor(Math.random() * cores.length)];
 
   loginContainer.style.display = "none";
   chatContainer.style.display = "flex";
@@ -57,7 +73,7 @@ function processarMensagem({ data }) {
     if (dados.id == usuario.id) {
       criarMinhaMensagem(dados.conteudo);
     } else {
-      criarOutrosMensagem(dados.nome, dados.conteudo);
+      criarOutrosMensagem(dados.nome, dados.conteudo, dados.cor);
     }
   }
 
@@ -81,11 +97,13 @@ function criarMinhaMensagem(mensagem) {
   mensagens.appendChild(minhaMsg);
 }
 
-function criarOutrosMensagem(nome, mensagem) {
+function criarOutrosMensagem(nome, mensagem, cor) {
   var outroMsg = document.createElement("div");
   outroMsg.classList.add("outrasMsgs");
+  // outroMsg.style.backgroundColor = "#fffdd7ff:";
+  // console.log(outroMsg.children); //.style.backgroundColor = cor;
 
-  outroMsg.innerHTML = `<span
+  outroMsg.innerHTML = `<span style="background-color: ${cor}"
             ><b>${nome}</b> <br />
             ${mensagem}</span`;
 
@@ -96,6 +114,7 @@ function enviar() {
   let mensagem = {
     id: usuario.id,
     nome: usuario.nome,
+    cor: usuario.cor,
     conteudo: chatMsgInput.value,
   };
 
