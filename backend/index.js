@@ -3,13 +3,13 @@
 // import express from "express";
 
 const { WebSocketServer } = require("ws");
-const http = require("http");
-const express = require("express");
+// const http = require("http");
+// const express = require("express");
 
-const app = express();
-const server = http.createServer(app);
+// const app = express();
+// const server = http.createServer(app);
 const PORT = 3000;
-const servidor = new WebSocketServer({ server });
+const servidor = new WebSocketServer({ port: PORT });
 
 servidor.on("connection", realizarConexao);
 
@@ -29,8 +29,10 @@ function realizarConexao(socket) {
   });
 }
 
-server.listen(PORT, () => {
-  console.log("Server started on http://localhost:3000");
-});
+// server.listen(PORT, () => {
+//   console.log("Server started on http://localhost:3000");
+// });
 
-module.exports = server;
+// app.listen(PORT, () => console.log("Server On!"));
+
+// module.exports = app;
